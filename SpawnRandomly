@@ -1,0 +1,13 @@
+public void SpawnRandomly()
+    {
+        for (int i = 0; i < this.spawnAmount; i++)
+        {
+            Vector3 spawnDirection = Random.insideUnitCircle.normalized * this.spawnDistance;
+            Vector3 spawnPoint = this.transform.position + spawnDirection;
+            float variance = Random.Range(-this.trajectoryVariance, this.trajectoryVariance);
+            Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
+            LaserScript laser = Instantiate(this.laserPrefab, spawnPoint, rotation);
+            laser.size = Random.Range(laser.minSize, laser.maxSize);
+            laser.SetTrajectory(rotation * -spawnDirection);
+        }
+    }
